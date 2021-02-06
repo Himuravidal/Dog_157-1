@@ -1,4 +1,4 @@
-package com.example.dog_157_1
+package com.example.dog_157_1.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

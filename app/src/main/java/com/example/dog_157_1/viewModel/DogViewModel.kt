@@ -1,4 +1,4 @@
-package com.example.dog_157_1
+package com.example.dog_157_1.viewModel
 
 import android.app.Application
 import android.util.Log
