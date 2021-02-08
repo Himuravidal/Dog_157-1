@@ -12,22 +12,24 @@ import java.lang.Exception
 
 class DogRepo(private val dao: DogDao) {
 
-    val listBreed  = dao.getAllBreedList() // All breed from DB
+    val listBreed = dao.getAllBreedList() // All breed from DB
+
+    val listFavImages = dao.getAllFavImages() // Al fav images
 
     suspend fun fetchAllBreed() { // this will fetch the data & save it on DB
-            try {
-                val response =  DogApi.retrofitService.fetchBreedList()
-                when(response.isSuccessful){
-                    true -> response.body()?.let {
-                        Log.d("REPO", "$it.message")
-                        dao.insertAllDogBreed(fromRemoteToEntityBreed(it))
-                    }
-                    false ->  Log.d("REPO", "${response.code()} - ${response.errorBody()}")
+        try {
+            val response = DogApi.retrofitService.fetchBreedList()
+            when (response.isSuccessful) {
+                true -> response.body()?.let {
+                    Log.d("REPO", "$it.message")
+                    dao.insertAllDogBreed(fromRemoteToEntityBreed(it))
                 }
-
-            } catch (e: Exception) {
-                Log.e("REPO", "${e.message}")
+                false -> Log.d("REPO", "${response.code()} - ${response.errorBody()}")
             }
+
+        } catch (e: Exception) {
+            Log.e("REPO", "${e.message}")
+        }
     }
 
     suspend fun fetchImageByBreed(breed: String) { //this will
@@ -41,8 +43,11 @@ class DogRepo(private val dao: DogDao) {
         }
     }
 
-    fun getAllimagesByBreed(breed: String): LiveData<List<ImagesBreed>>{
+    fun getAllimagesByBreed(breed: String): LiveData<List<ImagesBreed>> {
         return dao.getImagesByBreed(breed)
     }
 
+    suspend fun updateFavImages(imagesBreed: ImagesBreed) { // This will update the fav
+        dao.updateImageBreed(imagesBreed)
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -38,6 +39,20 @@ class SecondFragment : Fragment() {
         viewModel.getImage().observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.update(it)
+            }
+        })
+
+        adapter.selectedItem().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it.fav) {
+                    it.fav = false
+                    viewModel.updateFavImages(it)
+                    Toast.makeText(context, "Ya no es fav", Toast.LENGTH_LONG).show()
+                } else {
+                    it.fav = true
+                    viewModel.updateFavImages(it)
+                    Toast.makeText(context, "Añadido a fav", Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

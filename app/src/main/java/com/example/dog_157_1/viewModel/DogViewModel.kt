@@ -25,9 +25,15 @@ class DogViewModel(application: Application): AndroidViewModel(application){
         }
     }
 
-    fun getBreedList(): LiveData<List<BreedEntity>> = repository.listBreed
+    fun getBreedList(): LiveData<List<BreedEntity>> = repository.listBreed // this return all breed
+            //from database
 
+    fun getAllFavList(): LiveData<List<ImagesBreed>> = repository.listFavImages // This return all
+            //fav from database
 
+    fun updateFavImages(imagesBreed: ImagesBreed) = viewModelScope.launch  {
+        repository.updateFavImages(imagesBreed)
+    }
 
     private var breedSelected : String = ""
 

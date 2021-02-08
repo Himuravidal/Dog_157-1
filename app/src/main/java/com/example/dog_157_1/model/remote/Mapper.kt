@@ -8,5 +8,5 @@ fun fromRemoteToEntityBreed(wrapperBreed: WrapperBreed): List<BreedEntity>{
 }
 
 fun fromRemoteToEntityImage(image: WrapperImage, breed: String): List<ImagesBreed>{
-    return image?.message.map { ImagesBreed(imgURL = it, breed = breed) }
+    return image?.message.map { ImagesBreed(imgURL = it, breed = breed, fav = false) }
 }
