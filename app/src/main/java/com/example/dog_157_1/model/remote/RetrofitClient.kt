@@ -14,17 +14,9 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface DogAPI {
-    @GET("breeds/list")
-    suspend fun fetchBreedList(): Response<WrapperBreed>
-
-    @GET("breed/{breed}/images/")
-    suspend fun fetchImagesByBreed(@Path("breed") breed: String) : Response<WrapperImage>
-}
 
 object DogApi {
     val retrofitService : DogAPI by lazy {
         retrofit.create(DogAPI::class.java)
     }
-
 }
